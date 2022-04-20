@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using barber_shops.Data;
+using barber_shops.Repos;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppDbContext>(
+    options => options.UseSqlite(builder.Configuration["ConnectionStrings:LocalSqLiteConnectionString"]));
+builder.Services.AddScoped<IBarbersRepo, BarbersRepo>();
 
 var app = builder.Build();
 

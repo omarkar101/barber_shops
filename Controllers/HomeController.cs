@@ -1,21 +1,25 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using barber_shops.Models;
+using barber_shops.Repos;
 
 namespace barber_shops.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IBarbersRepo _barbersRepo;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IBarbersRepo barbersRepo)
     {
         _logger = logger;
+        _barbersRepo = barbersRepo;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var barbers = _barbersRepo.GetBarbers();
+        return View(barbers);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

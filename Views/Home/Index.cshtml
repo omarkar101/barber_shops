@@ -4,7 +4,7 @@
 }
 
 <div class="w-100">
-    <img src="welcome.png" alt="welcome image" style="height: 600px">
+    <img src="https://picsum.photos/200/300" alt="welcome image" style="height: 600px" width="100%">
 </div>
 
 <div class="text-center">
@@ -30,10 +30,9 @@
                             <i class="fa fa-star" aria-hidden="true"></i>
                         }
                     </p>
-                    <a  class="btn btn-primary" asp-controller="Hotels" asp-action="viewHotel" asp-route-id="@barber.Id">View</a>
-                    <a class="btn btn-danger" asp-controller="Hotels" asp-action="DeleteHotel" asp-route-id="@barber.Id">Delete</a>
+                    <a class="btn btn-primary" asp-controller="Barber" asp-action="Index" asp-route-id="@barber.Id">View</a>
                 </div>
-            </div>           
+            </div>
         }
     </div>
 </div>

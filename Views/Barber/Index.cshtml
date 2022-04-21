@@ -1,39 +1,4 @@
-using barber_shops.Models;
+@model Barber
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/4.7.0/css/font-awesome.min.css" />
-</head>
-<body>
-    <div>
-        <div class="mb-4 align-content-start d-flex flex-wrap">
-            @foreach (var barber in @Model)
-            {
-                <div class="card m-1" style="width: 250px;" >
-                    <div style="text-align: center;">
-                        <img class="card-img-top himage" src=@barber.ImgURL alt="Card image">
-                    </div>
-                    
-                    <div class="pl-4 card-body">
-                        <h4 class="card-title">@barber.FirstName @barber.LastName</h4>
-                        <p class="card-text">Location: @barber.Location</p>
-                        <p class="card-text">Average Price: $@barber.averagePrice</p>
-                        <p class="card-text">
-                            @for (var i = 0; i < @barber.Rating; i++)
-                            {
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            }
-                        </p>
-                        <a  class="btn btn-primary" asp-controller="Hotels" asp-action="viewHotel" asp-route-id="@barber.Id">View</a>
-                        <a class="btn btn-danger" asp-controller="Hotels" asp-action="DeleteHotel" asp-route-id="@barber.Id">Delete</a>
-                    </div>
-                </div>           
-            }
-        </div>
-    </div>
-</body>
-</html>
+
+<h1>I'm Barber @Model.Id</h1>

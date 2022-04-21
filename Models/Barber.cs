@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace barber_shops.Models;
 
@@ -7,6 +8,7 @@ public class Barber
 
     [Key]
     [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id {get; set;} = 0;
 
     [Required]

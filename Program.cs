@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlite(builder.Configuration["ConnectionStrings:LocalSqLiteConnectionString"]));
 builder.Services.AddScoped<IBarbersRepo, BarbersRepo>();
+builder.Services.AddScoped<IClientsRepo, ClientsRepo>();
 
 var app = builder.Build();
 

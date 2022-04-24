@@ -22,6 +22,11 @@ public class ClientsRepo : IClientsRepo
         return _context.Clients.Where(c => c.Id == id).FirstOrDefault();
     }
 
+    public Client? GetClientByEmail(string email)
+    {
+        return _context.Clients.Where(c => c.Email.Equals(email)).FirstOrDefault();
+    }
+
     public void AddClient(Client client)
     {
         _context.Clients.Add(client);

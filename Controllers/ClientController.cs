@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using barber_shops.Utils;
 using barber_shops.Repos;
 using barber_shops.Models;
 
@@ -26,6 +27,8 @@ public class ClientController : Controller {
         if(!clientFromDb.Password.Equals(client.Password)) {
             return RedirectToAction("Login");
         }
+        Response.Cookies.Append("email", client.Email);
+        Response.Cookies.Append("password", client.Password);
         return RedirectToAction("Index", "Home");
     }
 
@@ -37,5 +40,15 @@ public class ClientController : Controller {
         }
         _clientsRepo.AddClient(client);
         return RedirectToAction("Login");
+    }
+
+    public IActionResult Profile() {
+        string? email = Request.Cookies["email"];
+        string? password = Request.Cookies["password"];
+        if(!Credentials.verifyCredentials(email, password, _clientsRepo)) {
+            return RedirectToAction("Login");
+        }
+        var client = _clientsRepo.GetClientByEmail(email);
+        return View(client);
     }
 }

@@ -32,5 +32,14 @@ public class Barber
 
     [Required]
     public int Rating {get; set;} = 0;
-
+    [Required]
+    public string Description {get;set;}=null!;
+    [Required]
+    public string Skills {get;set;}=null!;
+    [Required]
+    public string Experience {get;set;}=null!;
+    [Required]
+    public string Accomplishments {get;set;}=null!;
+    [Required]
+    public string Products {get;set;}=null!;
 }

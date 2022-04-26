@@ -51,4 +51,24 @@ public class ClientController : Controller {
         var client = _clientsRepo.GetClientByEmail(email);
         return View(client);
     }
+
+    public  IActionResult Edit(int id)
+    {
+        var client = _clientsRepo.GetClientByID(id);   
+        return View(client);
+    }
+
+    [HttpPost]
+    public  IActionResult edit(int id, Client client)
+    {
+        ViewData["error"] = null;
+        try {
+            _clientsRepo.UpdateClient(id, client);
+        } catch(Exception ex)
+        {
+            ViewData["error"] = ex.Data;
+            return RedirectToAction("edit", new{Id = id});
+        }
+        return RedirectToAction("Profile");
+    }
 }

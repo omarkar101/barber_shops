@@ -49,6 +49,9 @@ public class ClientsRepo : IClientsRepo
         if (clientToUpdate != null)
         {
             clientToUpdate.FirstName = client.FirstName;
+            clientToUpdate.LastName = client.LastName;
+            clientToUpdate.Email = client.Email;
+            clientToUpdate.PhoneNumber = client.PhoneNumber;
             _context.SaveChanges();
         }
     }

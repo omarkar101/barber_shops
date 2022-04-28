@@ -50,7 +50,6 @@ public class ClientsRepo : IClientsRepo
         {
             clientToUpdate.FirstName = client.FirstName;
             clientToUpdate.LastName = client.LastName;
-            clientToUpdate.Email = client.Email;
             clientToUpdate.PhoneNumber = client.PhoneNumber;
             _context.SaveChanges();
         }

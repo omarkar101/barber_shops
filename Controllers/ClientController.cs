@@ -52,14 +52,8 @@ public class ClientController : Controller {
         return View(client);
     }
 
-    public  IActionResult Edit(int id)
-    {
-        var client = _clientsRepo.GetClientByID(id);   
-        return View(client);
-    }
-
     [HttpPost]
-    public  IActionResult edit(int id, Client client)
+    public IActionResult Profile(int id, Client client)
     {
         ViewData["error"] = null;
         try {
@@ -67,7 +61,7 @@ public class ClientController : Controller {
         } catch(Exception ex)
         {
             ViewData["error"] = ex.Data;
-            return RedirectToAction("edit", new{Id = id});
+            return RedirectToAction("Profile");
         }
         return RedirectToAction("Profile");
     }

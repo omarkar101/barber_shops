@@ -13,6 +13,7 @@ public class AppDbContext : IdentityDbContext<Client>
 
     public DbSet<Client> Clients { get; set; } = null!;
     public DbSet<Barber> Barbers { get; set; } = null!;
+    public DbSet<ClientReservation> ClientReservations {get;set;} = null!;
 
   protected override void OnModelCreating(ModelBuilder builder)
   {

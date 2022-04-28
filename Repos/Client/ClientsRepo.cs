@@ -17,10 +17,9 @@ public class ClientsRepo : IClientsRepo
         return _context.Clients.OrderBy(c => c.Id).ToList();
     }
 
-    public Client? GetClientByID(int id)
+    public Client? GetClientByID(string id)
     {
-        // return _context.Clients.Where(c => c.Id == id).FirstOrDefault();
-        return null;
+        return _context.Clients.Where(c => c.Id == id).FirstOrDefault();
     }
 
     public Client? GetClientByEmail(string email)
@@ -44,7 +43,7 @@ public class ClientsRepo : IClientsRepo
         // }
     }
 
-    public void UpdateClient(int id, Client client)
+    public void UpdateClient(string id, Client client)
     {
         var clientToUpdate = GetClientByID(id);
         if (clientToUpdate != null)

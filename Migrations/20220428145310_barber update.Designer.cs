@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using barber_shops.Data;
 
@@ -10,9 +11,10 @@ using barber_shops.Data;
 namespace barber_shops.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428145310_barber update")]
+    partial class barberupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
@@ -140,47 +142,6 @@ namespace barber_shops.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("barber_shops.Models.ClientReservation", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BarberEmail")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("BearTrim")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ClientEmail")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("EndTime")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Haircut")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("QuickShower")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("SkinCare")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("StartTime")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("Wax")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ClientReservations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using barber_shops.Utils;
-using Microsoft.AspNetCore.Authorization;
 using barber_shops.Repos;
 using barber_shops.Models;
 
@@ -59,10 +56,8 @@ public class AccountController : Controller
   [HttpPost]
   public async Task<IActionResult> SignUp(SignUpViewModel model)
   {
-    Console.WriteLine("ENTERED SIGNUP");
     if (ModelState.IsValid)
     {
-      Console.WriteLine("VALIDDDDD");
       var client = new Client
       {
         UserName = model.Username,
@@ -84,8 +79,14 @@ public class AccountController : Controller
         }
       }
     }
-    else {
+    else
+    {
     }
     return View(model);
+  }
+  public async Task<IActionResult> LogOut()
+  {
+    await _signInManager.SignOutAsync();
+    return RedirectToAction("Index", "Home");
   }
 }

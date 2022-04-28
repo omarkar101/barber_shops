@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using barber_shops.Utils;
 using Microsoft.AspNetCore.Authorization;
 using barber_shops.Repos;
 using barber_shops.Models;
@@ -25,27 +23,30 @@ public class ClientController : Controller
   {
     var clientUsername = _userManager.GetUserName(User);
     var client = _clientsRepo.GetClientByEmail(clientUsername);
-    return View(client);
+    var model = new ProfileViewModel
+    {
+      Username = clientUsername,
+      FirstName = client.FirstName,
+      LastName = client.LastName,
+      PhoneNumber = client.PhoneNumber,
+      id=client.Id
+    };
+    return View(model);
   }
 
-  public IActionResult Edit(int id)
-  {
-    var client = _clientsRepo.GetClientByID(id);
-    return View(client);
-  }
-
+  [Authorize]
   [HttpPost]
-  public IActionResult edit(int id, Client client)
+  public IActionResult Profile(string id, ProfileViewModel model)
   {
+    Console.WriteLine(id);
     ViewData["error"] = null;
     try
     {
-      _clientsRepo.UpdateClient(id, client);
+      _clientsRepo.UpdateClient(id, new Client {FirstName=model.FirstName, LastName=model.LastName, PhoneNumber=model.PhoneNumber});
     }
     catch (Exception ex)
     {
       ViewData["error"] = ex.Data;
-      return RedirectToAction("edit", new { Id = id });
     }
     return RedirectToAction("Profile");
   }

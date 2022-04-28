@@ -33,4 +33,17 @@ public class Barber
     [Required]
     public int Rating {get; set;} = 0;
 
+    [Required]
+    public string Description {get; set;} = null!;
+
+    [Required]
+    public string Experience {get; set;} = null!;
+
+    [Required]
+    [DataType(DataType.Time)]
+    public string OpeningHours {get; set;} = "9:00 AM";
+
+    [Required]
+    [DataType(DataType.Time)]
+    public string ClosingHours {get; set;} = "9:00 PM";
 }

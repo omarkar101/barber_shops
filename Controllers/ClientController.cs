@@ -1,74 +1,52 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using barber_shops.Utils;
+using Microsoft.AspNetCore.Authorization;
 using barber_shops.Repos;
 using barber_shops.Models;
 
 namespace barber_shops.Controllers;
 
-public class ClientController : Controller {
-    private readonly IClientsRepo _clientsRepo;
-    public ClientController(IClientsRepo clientsRepo) {
-        _clientsRepo = clientsRepo;
-    }
-    public IActionResult SignUp() {
-        return View();
-    }
+public class ClientController : Controller
+{
+  private readonly IClientsRepo _clientsRepo;
+  private UserManager<Client> _userManager;
+  private SignInManager<Client> _signInManager;
+  public ClientController(IClientsRepo clientsRepo, UserManager<Client> userManager, SignInManager<Client> signInManager)
+  {
+    _clientsRepo = clientsRepo;
+    _userManager = userManager;
+    _signInManager = signInManager;
+  }
 
-    public IActionResult Login() {
-        return View();
-    }
+  [Authorize]
+  public IActionResult Profile()
+  {
+    var clientUsername = _userManager.GetUserName(User);
+    var client = _clientsRepo.GetClientByEmail(clientUsername);
+    return View(client);
+  }
 
-    [HttpPost]
-    public IActionResult Login(Client client) {
-        var clientFromDb = _clientsRepo.GetClientByEmail(client.Email);
-        if(clientFromDb == null) {
-            return RedirectToAction("SignUp");
-        }
-        if(!clientFromDb.Password.Equals(client.Password)) {
-            return RedirectToAction("Login");
-        }
-        Response.Cookies.Append("email", client.Email);
-        Response.Cookies.Append("password", client.Password);
-        return RedirectToAction("Index", "Home");
-    }
+  public IActionResult Edit(int id)
+  {
+    var client = _clientsRepo.GetClientByID(id);
+    return View(client);
+  }
 
-    [HttpPost]
-    public IActionResult SignUp(Client client) {
-        var clientFromDb = _clientsRepo.GetClientByEmail(client.Email);
-        if(clientFromDb != null) {
-            return RedirectToAction("SignUp");
-        }
-        _clientsRepo.AddClient(client);
-        return RedirectToAction("Login");
-    }
-
-    public IActionResult Profile() {
-        string? email = Request.Cookies["email"];
-        string? password = Request.Cookies["password"];
-        if(!Credentials.verifyCredentials(email, password, _clientsRepo)) {
-            return RedirectToAction("Login");
-        }
-        var client = _clientsRepo.GetClientByEmail(email);
-        return View(client);
-    }
-
-    public  IActionResult Edit(int id)
+  [HttpPost]
+  public IActionResult edit(int id, Client client)
+  {
+    ViewData["error"] = null;
+    try
     {
-        var client = _clientsRepo.GetClientByID(id);   
-        return View(client);
+      _clientsRepo.UpdateClient(id, client);
     }
-
-    [HttpPost]
-    public  IActionResult edit(int id, Client client)
+    catch (Exception ex)
     {
-        ViewData["error"] = null;
-        try {
-            _clientsRepo.UpdateClient(id, client);
-        } catch(Exception ex)
-        {
-            ViewData["error"] = ex.Data;
-            return RedirectToAction("edit", new{Id = id});
-        }
-        return RedirectToAction("Profile");
+      ViewData["error"] = ex.Data;
+      return RedirectToAction("edit", new { Id = id });
     }
+    return RedirectToAction("Profile");
+  }
 }

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using barber_shops.Data;
 using barber_shops.Repos;
+using barber_shops.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlite(builder.Configuration["ConnectionStrings:LocalSqLiteConnectionString"]));
 builder.Services.AddScoped<IBarbersRepo, BarbersRepo>();
 builder.Services.AddScoped<IClientsRepo, ClientsRepo>();
+builder.Services.AddIdentity<Client, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -27,6 +30,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

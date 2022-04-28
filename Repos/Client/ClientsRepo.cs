@@ -19,12 +19,13 @@ public class ClientsRepo : IClientsRepo
 
     public Client? GetClientByID(int id)
     {
-        return _context.Clients.Where(c => c.Id == id).FirstOrDefault();
+        // return _context.Clients.Where(c => c.Id == id).FirstOrDefault();
+        return null;
     }
 
     public Client? GetClientByEmail(string email)
     {
-        return _context.Clients.Where(c => c.Email.Equals(email)).FirstOrDefault();
+        return _context.Clients.Where(c => c.UserName.Equals(email)).FirstOrDefault();
     }
 
     public void AddClient(Client client)
@@ -35,12 +36,12 @@ public class ClientsRepo : IClientsRepo
 
     public void DeleteClient(Client client)
     {
-        var clientToDelete = GetClientByID(client.Id);
-        if (clientToDelete != null)
-        {
-            _context.Clients.Remove(client);
-            _context.SaveChanges();
-        }
+        // var clientToDelete = GetClientByID(client.Id);
+        // if (clientToDelete != null)
+        // {
+        //     _context.Clients.Remove(client);
+        //     _context.SaveChanges();
+        // }
     }
 
     public void UpdateClient(int id, Client client)

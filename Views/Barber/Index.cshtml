@@ -167,7 +167,7 @@
                 </div>
                 <div class="col-md-4 col-md-pull-7">
                     <div class="booking-form">
-                        <form>
+                        <form method="post" >
                             <div class="form-group">
                                 <span class="form-label">Choose your services: </span>
                                 <div class="d-flex justify-content-between">
@@ -218,7 +218,7 @@
                                 </div>
                             </div>
                             <div class="form-btn">
-                                <button class="submit-btn">Check Availability</button>
+                                <button asp-controller="ClientReservation" asp-action="Reserve"  class="submit-btn">Reserve</button>
                             </div>
                         </form>
                     </div>

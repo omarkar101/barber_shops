@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlite(builder.Configuration["ConnectionStrings:LocalSqLiteConnectionString"]));
 builder.Services.AddScoped<IBarbersRepo, BarbersRepo>();
 builder.Services.AddScoped<IClientsRepo, ClientsRepo>();
+builder.Services.AddScoped<IClientReservationsRepo, ClientReservationsRepo>();
 builder.Services.AddIdentity<Client, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 var app = builder.Build();

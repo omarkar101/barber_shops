@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using barber_shops.Data;
 
@@ -10,9 +11,10 @@ using barber_shops.Data;
 namespace barber_shops.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220430143317_added email to barber")]
+    partial class addedemailtobarber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
@@ -148,9 +150,8 @@ namespace barber_shops.Migrations
 
             modelBuilder.Entity("barber_shops.Models.ClientReservation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BarberEmail")
                         .IsRequired()
@@ -163,7 +164,8 @@ namespace barber_shops.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<string>("EndTime")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Haircut")
@@ -175,7 +177,8 @@ namespace barber_shops.Migrations
                     b.Property<bool>("SkinCare")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<string>("StartTime")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Wax")

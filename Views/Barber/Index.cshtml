@@ -1,4 +1,4 @@
-@model Barber
+@model ClientReservationViewModel
 
 <style>
     .section {
@@ -139,7 +139,8 @@
         font-size: 16px;
         color: #000;
     }
-    .prices{
+
+    .prices {
         color: blue;
     }
 </style>
@@ -149,54 +150,53 @@
             <div class="row">
                 <div class="col-md-7 col-md-push-5">
                     <div class="booking-cta">
-                        <h1></h1>@Model.FirstName @Model.LastName</h1>
-                        <h4>@Model.Location</h4>
+                        <h1></h1>@Model.BarberFirstName @Model.BarberLastName</h1>
+                        <h4>@Model.BarberLocation</h4>
                     </div>
                     <hr>
                     <div class="row">
                         <h4>Description:</h4>
                         <br>
-                        <p>@Model.Description</p>
+                        <p>@Model.BarberDescription</p>
                     </div>
                     <hr>
                     <div class="row">
                         <h4>Experience:</h4>
                         <br>
-                        <p>@Model.Experience</p>
+                        <p>@Model.BarberExperience</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-md-pull-7">
                     <div class="booking-form">
-                        <form method="post" >
+                        <form asp-route-barberEmail="@Model.BarberEmail" asp-route-barberId="@Model.BarberId"
+                            asp-controller="ClientReservation" asp-action="Reserve" method="post">
                             <div class="form-group">
                                 <span class="form-label">Choose your services: </span>
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <input class="form-check-input" type="checkbox" id="check1" name="Haircut"
-                                            value="something">
+                                        <input class="form-check-input" type="checkbox" asp-for="@Model.Haircut">
                                         <label class="form-check-label">Haircut <span class="prices">30$</span></label>
                                     </div>
                                     <div>
-                                        <input class="form-check-input" type="checkbox" id="check1" name="Beard_Trim"
-                                            value="something">
-                                        <label class="form-check-label">Beard Trim <span class="prices">10$</span></label>
+                                        <input class="form-check-input" type="checkbox" asp-for="@Model.BearTrim">
+                                        <label class="form-check-label">Beard Trim <span
+                                                class="prices">10$</span></label>
                                     </div>
                                     <div>
-                                        <input class="form-check-input" type="checkbox" id="check1" name="SkinCare"
-                                            value="something">
-                                        <label class="form-check-label">Skin Care <span class="prices">40$</span></label>
+                                        <input class="form-check-input" type="checkbox" asp-for="@Model.SkinCare">
+                                        <label class="form-check-label">Skin Care <span
+                                                class="prices">40$</span></label>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-evenly">
                                     <div>
-                                        <input class="form-check-input" type="checkbox" id="check1" name="Wax"
-                                            value="something">
+                                        <input class="form-check-input" type="checkbox" asp-for="@Model.Wax">
                                         <label class="form-check-label">Wax <span class="prices">15$</span></label>
                                     </div>
                                     <div>
-                                        <input class="form-check-input" type="checkbox" id="check1"
-                                            name="QuickHeadShower" value="something">
-                                        <label class="form-check-label">Quick Shower <span class="prices">10$</span></label>
+                                        <input class="form-check-input" type="checkbox" asp-for="@Model.QuickShower">
+                                        <label class="form-check-label">Quick Shower <span
+                                                class="prices">10$</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -204,21 +204,19 @@
                                 <div>
                                     <div class="form-group">
                                         <span class="form-label">Choose Date: </span>
-                                        <input class="form-control" type="date" required>
+                                        <input asp-for="@Model.Date" class="form-control" type="datetime-local"
+                                            required>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div>
-                                    <div class="form-group">
-                                        <span class="form-label">Choose Time: </span>
-                                        <input class="form-control" type="time" required>
-                                    </div>
-                                    <p>Opening Hours: 9:00 AM to 9:00 PM</p>
+                                    @if (ViewData["message"] != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                          @ViewData["message"]
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div class="form-btn">
-                                <button asp-controller="ClientReservation" asp-action="Reserve"  class="submit-btn">Reserve</button>
+                                <button type="submit" class="submit-btn">Reserve</button>
                             </div>
                         </form>
                     </div>

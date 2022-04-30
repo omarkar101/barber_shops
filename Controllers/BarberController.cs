@@ -9,8 +9,18 @@ public class BarberController : Controller {
     {
         _barbersRepo = barbersRepo;
     }
-    public IActionResult Index(int id) {
+    public IActionResult Index(int id, string? message) {
         var barber = _barbersRepo.GetBarberByID(id);
-        return View(barber);
+        var model = new ClientReservationViewModel {
+            BarberDescription=barber.Description,
+            BarberId=barber.Id,
+            BarberEmail=barber.Username,
+            BarberExperience=barber.Experience,
+            BarberFirstName=barber.FirstName,
+            BarberLastName=barber.LastName,
+            BarberLocation=barber.Location
+        };
+        ViewData["message"] = message;
+        return View(model);
     }
 }

@@ -10,13 +10,27 @@ public class ClientReservationsRepo: IClientReservationsRepo
     {
         _context = context;
     }
-    public IEnumerable<ClientReservation> GetClientReservations() {
-        return _context.ClientReservations.OrderBy(c => c.Id).ToList();
+    public IEnumerable<ClientReservation> GetClientReservations(string clientUsername) {
+        return _context.ClientReservations.Where(c => c.ClientEmail == clientUsername).OrderBy(c => c.StartTime).ToList();
+    }
+    public IEnumerable<ClientReservation> GetBarberReservations(string barberEmail) {
+        return _context.ClientReservations.Where(c => c.BarberEmail == barberEmail).ToList();
     }
     public ClientReservation? GetClientReservationByBarberAndClientEmails(string clientEmail, string barberEmail){
         return _context.ClientReservations.Where(c=>c.ClientEmail.Equals(clientEmail) && c.BarberEmail.Equals(barberEmail)).FirstOrDefault();
     }
-    public ClientReservation? GetClientReservationByID(string id){
+    public bool CheckIfSlotAvailable(string barberEmail, DateTime dateTime) {
+        var currentReservations = this.GetBarberReservations(barberEmail);
+        foreach (var reservation in currentReservations)
+        {
+            if((dateTime >= reservation.StartTime && dateTime <= reservation.EndTime) ||
+                (dateTime.AddMinutes(30) >= reservation.StartTime && dateTime.AddMinutes(30) <= reservation.EndTime)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public ClientReservation? GetClientReservationByID(int id){
         return _context.ClientReservations.Where(c=>c.Id==id).FirstOrDefault();
     }
     public void AddClientReservation(ClientReservation clientReservation){
@@ -31,7 +45,7 @@ public class ClientReservationsRepo: IClientReservationsRepo
                 _context.SaveChanges();
             }
     }
-    public void UpdateClientReservation(string id,ClientReservation clientReservation){
+    public void UpdateClientReservation(int id,ClientReservation clientReservation){
         var clientToUpdate = GetClientReservationByID(id);
         if (clientToUpdate != null)
         {

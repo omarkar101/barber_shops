@@ -9,13 +9,16 @@ namespace barber_shops.Controllers;
 public class ClientController : Controller
 {
   private readonly IClientsRepo _clientsRepo;
+  private readonly IClientReservationsRepo res;
+
   private UserManager<Client> _userManager;
   private SignInManager<Client> _signInManager;
-  public ClientController(IClientsRepo clientsRepo, UserManager<Client> userManager, SignInManager<Client> signInManager)
+  public ClientController(IClientsRepo clientsRepo, UserManager<Client> userManager, SignInManager<Client> signInManager,IClientReservationsRepo reservationsRepo)
   {
     _clientsRepo = clientsRepo;
     _userManager = userManager;
     _signInManager = signInManager;
+    res=reservationsRepo;
   }
 
   [Authorize]
@@ -23,13 +26,16 @@ public class ClientController : Controller
   {
     var clientUsername = _userManager.GetUserName(User);
     var client = _clientsRepo.GetClientByEmail(clientUsername);
+    var list=res.GetClientReservations(clientUsername);
+
     var model = new ProfileViewModel
     {
       Username = clientUsername,
       FirstName = client.FirstName,
       LastName = client.LastName,
       PhoneNumber = client.PhoneNumber,
-      id=client.Id
+      id=client.Id,
+      ReservationList= list
     };
     return View(model);
   }
@@ -50,4 +56,11 @@ public class ClientController : Controller
     }
     return RedirectToAction("Profile");
   }
+
+  public IActionResult delete(int id)
+        {
+            var item = res.GetClientReservationByID(id);
+            res.DeleteClientReservation(item);
+            return RedirectToAction("Profile");
+        }
 }

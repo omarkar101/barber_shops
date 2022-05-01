@@ -5,6 +5,7 @@ public interface IBarbersRepo
 {
     IEnumerable<Barber> GetBarbers();
     Barber? GetBarberByID(int id);
+    Barber? GetBarberByID(string email);
     void AddBarber(Barber barber);
     void DeleteBarber(Barber barber);
     void UpdateBarber(int id, Barber barber);

@@ -52,7 +52,7 @@
 <div class="col-md-4">
     <div class="p-3 py-5">
         <div class="d-flex justify-content-between align-items-center experience">
-            <h4 class="text-right">History of Barbers</h4>
+            <h4 class="text-right">History of Reservations</h4>
         </div><br>
         <div class="table-responsive">
             <table class="table w-100">
@@ -60,37 +60,70 @@
                     <tr>
                         <th class="text-center" scope="col">Date/Time</th>
                         <th scope="col">Barber</th>
-                        <th scope="col">Area</th>
+                        <th scope="col">Services</th>
+                        <th scope="col">Cost</th>
                         <th class="text-center" scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="inner-box">
+                    @foreach (var item in @Model.ReservationList){
+                        <tr class="inner-box">
                         <td class="w-50">
                             <div>
-                                <p>16 November</p>
-                                <p>05:35 AM - 08:00 AM</p>
+                                <p>@item.StartTime</p>
+
                             </div>
                         </td>
                         <td class="w-50">
                             <div class="event-img">
                                 <img width="75px" height="75px" src="https://bootdey.com/img/Content/avatar/avatar1.png"
                                     alt="" />
-                                <p>Barber Name</p>
+                                <p>@item.BarberEmail</p>
                             </div>
+                        </td>
+                        
+                        <td>
+                            <div class="w-50">
+                                <ul>
+                                
+                                @{int price=0;
+                                    @if(item.Haircut==true){
+                                    price+=30;
+                                    <li>Haircut</li>
+                                }
+                                @if(item.BearTrim==true){
+                                    price+=10;
+                                    <li>BeardTrim</li>
+                                }
+                                @if(item.SkinCare==true){
+                                    price+=40;
+                                    <li>SkinCare</li>
+                                }
+                                @if(item.Wax==true){
+                                    price+=15;
+                                    <li>Wax</li>
+                                }
+                                @if(item.QuickShower==true){
+                                    price+=10;
+                                    <li>QuickShower</li>
+                                }}
+                            </ul>
+                            </div>
+                            
                         </td>
                         <td>
                             <div class="w-50">
-                                <span>Beirut</span>
+                                <span>@price$</span>
                             </div>
                         </td>
                         <td>
-                            <a>
+                            <a asp-controller="Client" asp-action="delete" asp-route-id="@item.Id">
                                 <button class="material-symbols-outlined nav link" type="button"
                                     style="color: red; border:none; background-color: white;">delete_forever</button>
                             </a>
                         </td>
                     </tr>
+                    }
                 </tbody>
             </table>
         </div>

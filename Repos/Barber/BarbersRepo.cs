@@ -21,6 +21,9 @@ public class BarbersRepo : IBarbersRepo
     {
         return _context.Barbers.Where(c => c.Id == id).FirstOrDefault();
     }
+    public Barber? GetBarberByID(string email){
+        return _context.Barbers.Where(c => c.Username.Equals(email)).FirstOrDefault();
+    }
 
     public void AddBarber(Barber barber)
     {

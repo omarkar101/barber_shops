@@ -1,4 +1,5 @@
 @model List<Barber>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 <div class="w-100">
     <h4>Results found: @Model.Count()</h4>
@@ -7,22 +8,29 @@
     <div class="mb-4 align-content-start d-flex flex-wrap">
         @foreach (var barber in Model)
         {
-            <div class="card m-1" style="width: 250px;" >
+            <div class="card m-1 rounded p-2 bg-dark" style="width: 250px;">
                 <div style="text-align: center;">
                     <img class="card-img-top himage" src=@barber.IMG alt="Card image">
                 </div>
-                
-                <div class="pl-4 card-body">
-                    <h4 class="card-title">@barber.FirstName @barber.LastName</h4>
-                    <p class="card-text">Location: @barber.Location</p>
-                    <p class="card-text">Average Price: $@barber.averagePrice</p>
-                    <p class="card-text">
+
+                <div class="pl-4 card-body bg-dark m-1">
+                    <h4 class="card-title bg-black text-white rounded text-center p-1">@barber.FirstName @barber.LastName
+                    </h4>
+                    <p class="card-text  bg-black text-white rounded text-center p-1">Location: @barber.Location</p>
+                    <p class="card-text bg-black  text-white rounded text-center p-1">
+
+
                         @for (var i = 0; i < @barber.Rating; i++)
                         {
-                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" style="color: gold;" aria-hidden="true"></i>
                         }
                     </p>
-                    <a class="btn btn-primary" asp-controller="Barber" asp-action="Index" asp-route-id="@barber.Id">View</a>
+                    <p class="card-text bg-black text-white rounded text-center p-1">Average Price: $@barber.averagePrice
+                    </p>
+                    <div class="text-center">
+                        <a class="btn btn-light text-dark rounded" asp-controller="Barber" asp-action="Index"
+                        asp-route-id="@barber.Id">View</a>
+                    </div>
                 </div>
             </div>
         }

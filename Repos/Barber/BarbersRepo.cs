@@ -21,16 +21,16 @@ public class BarbersRepo : IBarbersRepo
     {
         return _context.Barbers.Where(c => c.Id == id).FirstOrDefault();
     }
-<<<<<<< HEAD
-    public List<Barber>? GetBarbersbyName(string name){
-        return _context.Barbers.Where(c=>c.FirstName==name).OrderBy(m=>m.Id).ToList();
-    }
-=======
+    
+
     public Barber? GetBarberByID(string email){
         return _context.Barbers.Where(c => c.Username.Equals(email)).FirstOrDefault();
     }
+    public List<Barber>? GetBarbersbyName(string name){
+        return _context.Barbers.Where(c=>c.FirstName==name || c.LastName==name || (c.FirstName+" "+c.LastName)==name).OrderBy(m=>m.Id).ToList();
+    }
 
->>>>>>> 21eed8ff589d4993d5e3394633f1fcaee754276a
+
     public void AddBarber(Barber barber)
     {
         _context.Barbers.Add(barber);

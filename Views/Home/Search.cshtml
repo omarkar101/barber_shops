@@ -1,0 +1,31 @@
+@model List<Barber>
+
+
+<div class="w-100">
+    <h4>Results found: @Model.Count()</h4>
+</div>
+<div>
+    <div class="mb-4 align-content-start d-flex flex-wrap">
+        @foreach (var barber in Model)
+        {
+            <div class="card m-1" style="width: 250px;" >
+                <div style="text-align: center;">
+                    <img class="card-img-top himage" src=@barber.IMG alt="Card image">
+                </div>
+                
+                <div class="pl-4 card-body">
+                    <h4 class="card-title">@barber.FirstName @barber.LastName</h4>
+                    <p class="card-text">Location: @barber.Location</p>
+                    <p class="card-text">Average Price: $@barber.averagePrice</p>
+                    <p class="card-text">
+                        @for (var i = 0; i < @barber.Rating; i++)
+                        {
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        }
+                    </p>
+                    <a class="btn btn-primary" asp-controller="Barber" asp-action="Index" asp-route-id="@barber.Id">View</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

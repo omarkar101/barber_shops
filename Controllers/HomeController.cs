@@ -16,6 +16,7 @@ public class HomeController : Controller
         _barbersRepo = barbersRepo;
     }
 
+
     public IActionResult Index()
     {
         var barbers = _barbersRepo.GetBarbers();
@@ -26,5 +27,25 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public IActionResult Search(List<Barber> listOfBarbers) {
+        
+        return View(listOfBarbers);
+    }
+
+    [HttpPost]
+    public IActionResult Search(string name) {
+        var barbers = _barbersRepo.GetBarbers();
+        List<Barber> SearchedBarbers = new List<Barber>();
+        foreach (Barber barber in barbers)
+        {
+            if (barber.FirstName == name || barber.LastName == name)
+            {
+                SearchedBarbers.Add(barber);
+            }
+        }
+
+        return RedirectToAction("Search", SearchedBarbers);
     }
 }

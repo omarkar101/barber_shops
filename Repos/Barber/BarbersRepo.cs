@@ -21,7 +21,9 @@ public class BarbersRepo : IBarbersRepo
     {
         return _context.Barbers.Where(c => c.Id == id).FirstOrDefault();
     }
-
+    public List<Barber>? GetBarbersbyName(string name){
+        return _context.Barbers.Where(c=>c.FirstName==name).OrderBy(m=>m.Id).ToList();
+    }
     public void AddBarber(Barber barber)
     {
         _context.Barbers.Add(barber);

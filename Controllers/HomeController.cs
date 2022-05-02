@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Net;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using barber_shops.Models;
 using barber_shops.Repos;
@@ -28,24 +29,11 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-
-    public IActionResult Search(List<Barber> listOfBarbers) {
-        
-        return View(listOfBarbers);
-    }
-
     [HttpPost]
     public IActionResult Search(string name) {
-        var barbers = _barbersRepo.GetBarbers();
-        List<Barber> SearchedBarbers = new List<Barber>();
-        foreach (Barber barber in barbers)
-        {
-            if (barber.FirstName == name || barber.LastName == name)
-            {
-                SearchedBarbers.Add(barber);
-            }
-        }
-
-        return RedirectToAction("Search", SearchedBarbers);
+        List <Barber> SearchedBarbers = _barbersRepo.GetBarbersbyName(name);
+        return View(SearchedBarbers);
     }
+
+    
 }

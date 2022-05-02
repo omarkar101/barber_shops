@@ -26,6 +26,13 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                     </ul>
+                    <div class="">
+                        <form class="d-flex" asp-controller="Home" asp-action="Search" method="post"> 
+                            @using(Html.BeginForm("Search","home")){
+                            <input class="form-control" name="name" placeholder="Search by Name"> 
+                            <button class="btn btn-primary" type="submit">Search</button> }
+                        </form>
+                    </div>
                     <div style="float: right;">
                        <ul>
                         <li class="nav-item">
@@ -33,8 +40,9 @@
                                 <a class="material-symbols-outlined nav-link text-light" asp-controller="Client" asp-action="Profile">account_circle</a>
                             </div>
                         </li>
-                    </ul> 
+                        </ul>
                     </div>
+                    
                 </div>
             </div>
         </nav>

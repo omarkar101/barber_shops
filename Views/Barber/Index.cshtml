@@ -208,7 +208,7 @@
                                     <div class="form-group">
                                         <span class="form-label text-white-50">Choose Date: </span>
                                         <input asp-for="@Model.Date" class="form-control" type="datetime-local"
-                                            required>
+                                         value="DateTime.now" required>
                                     </div>
                                     @if (ViewData["message"] != null)
                                     {

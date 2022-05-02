@@ -21,9 +21,15 @@ public class BarbersRepo : IBarbersRepo
     {
         return _context.Barbers.Where(c => c.Id == id).FirstOrDefault();
     }
+    
+
     public Barber? GetBarberByID(string email){
         return _context.Barbers.Where(c => c.Username.Equals(email)).FirstOrDefault();
     }
+    public List<Barber>? GetBarbersbyName(string name){
+        return _context.Barbers.Where(c=>c.FirstName==name || c.LastName==name || (c.FirstName+" "+c.LastName)==name).OrderBy(m=>m.Id).ToList();
+    }
+
 
     public void AddBarber(Barber barber)
     {

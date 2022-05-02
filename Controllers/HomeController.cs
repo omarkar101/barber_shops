@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Net;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using barber_shops.Models;
 using barber_shops.Repos;
@@ -16,6 +17,7 @@ public class HomeController : Controller
         _barbersRepo = barbersRepo;
     }
 
+
     public IActionResult Index()
     {
         var barbers = _barbersRepo.GetBarbers();
@@ -27,4 +29,11 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    [HttpPost]
+    public IActionResult Search(string name) {
+        List <Barber> SearchedBarbers = _barbersRepo.GetBarbersbyName(name);
+        return View(SearchedBarbers);
+    }
+
+    
 }

@@ -12,7 +12,7 @@ public class Barber
     public int Id {get; set;} = 0;
 
     [Required]
-    public string Username {get;set;}
+    public string Username {get; set;}
 
     [Required]
     public string FirstName {get; set;} = null!;

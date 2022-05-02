@@ -144,6 +144,9 @@
         color: gray;
     }
 </style>
+<body>
+    
+
 <div id="booking" class="section">
     <div class="section-center">
         <div class="container">
@@ -166,7 +169,7 @@
                         <p>@Model.BarberExperience</p>
                     </div>
                 </div>
-                <div class="col-md-5 col-md-push-7 bg-dark">
+                <div class="col-md-5 col-xl-5 col-md-push-7 bg-dark">
                     <div class="booking-form bg-dark text-white-50">
                         <form asp-route-barberEmail="@Model.BarberEmail" asp-route-barberId="@Model.BarberId"
                             asp-controller="ClientReservation" asp-action="Reserve" method="post">
@@ -225,3 +228,4 @@
         </div>
     </div>
 </div>
+</body>

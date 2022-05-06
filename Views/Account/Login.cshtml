@@ -13,7 +13,8 @@
             <form method="POST" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" autocomplete="off">
               <div class="mb-3">
                 <label class="mb-2 text-muted">E-Mail Address</label>
-                <input asp-for="Username" type="email" class="form-control bg-light" placeholder="Enter your email" required autofocus>
+                <input asp-for="Username" type="email" class="form-control bg-light" placeholder="Enter your email"
+                  required autofocus>
                 <div class="col">
                   <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
@@ -23,14 +24,10 @@
                 <div class="mb-2 w-100">
                   <label class="text-muted" for="password">Password</label>
                   <div class="col">
-<span asp-validation-for="Password"
-class="text-danger"></span>
-</div>
-                  <a class="float-end">
-                    Forgot Password?
-                  </a>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                  </div>
                 </div>
-                <input asp-for="Password" type="password" class="form-control" required>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" required>
                 <div class="invalid-feedback">
                   Password is required
                 </div>

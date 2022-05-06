@@ -24,11 +24,17 @@ public class AccountController : Controller
   public IActionResult Login(string returnUrl = "")
   {
     var model = new LoginViewModel { ReturnUrl = returnUrl };
+    // Console.WriteLine(ModelState["error"]);
+    string messages = string.Join("\n", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Where(x => x.ErrorMessage.Equals("Incorrect email or password!!")).FirstOrDefault()?.ErrorMessage);
+    Console.WriteLine(messages);
+    Console.WriteLine("WE ARE IN LOGIN!");
     return View(model);
   }
 
   [HttpPost]
-  public async Task<IActionResult> LogIn(LoginViewModel model)
+  public async Task<IActionResult> Login(LoginViewModel model)
   {
     if (ModelState.IsValid)
     {
@@ -49,7 +55,6 @@ public class AccountController : Controller
         }
       }
     }
-    ModelState.AddModelError("", "Invalid username/password.");
     return View(model);
   }
 

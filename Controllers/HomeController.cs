@@ -31,8 +31,15 @@ public class HomeController : Controller
     }
     [HttpPost]
     public IActionResult Search(string name) {
-        List <Barber> SearchedBarbers = _barbersRepo.GetBarbersbyName(name);
-        return View(SearchedBarbers);
+        var allBarbers = _barbersRepo.GetBarbers();
+        List<Barber> barbers = new List<Barber>();
+        foreach (var barber in allBarbers)
+        {
+            if (barber.FirstName.Concat(barber.LastName).ToString().ToLower().StartsWith(name.ToLower()) || barber.FirstName.ToLower().StartsWith(name.ToLower()) || barber.LastName.ToLower().StartsWith(name.ToLower())) {
+                barbers.Add(barber);
+            }
+        }
+        return View(barbers);
     }
 
     
